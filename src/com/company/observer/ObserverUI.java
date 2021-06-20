@@ -3,6 +3,7 @@ package com.company.observer;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class ObserverUI extends JFrame{
     private JTextField subscriberNameTextField;
@@ -21,11 +22,12 @@ public class ObserverUI extends JFrame{
     String email;
     int type;
     Observer observer = null;
-    Subject subject = new Subject();
+    static boolean subjectWindowOpen=false;
 
-    public ObserverUI(String title){
+    public ObserverUI(String title, Subject subject){
         this.setContentPane(FormPanel1);
         this.setTitle(title);
+
 
         unsubscribeButton.setVisible(false);
         emailAddressLabel.setVisible(false);
@@ -41,10 +43,12 @@ public class ObserverUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(purposeComboBox.getSelectedItem().equals("Read news")){
                     modeComboBox.addItem("e-copy");
+                    modeComboBox.setEnabled(true);
                 }
                 else if(purposeComboBox.getSelectedItem().equals("Wrap food")){
                     modeComboBox.removeItem("e-copy");
                     type=2;
+                    modeComboBox.setEnabled(false);
                 }
             }
         });
@@ -88,12 +92,19 @@ public class ObserverUI extends JFrame{
                     System.out.println("Could not subscribe. Please try again");
                 }
                 subscribeButton.setVisible(false);
+                subscriberNameTextField.setEnabled(false);
+                emailTextField.setEnabled(false);
+                purposeComboBox.setEnabled(false);
+                modeComboBox.setEnabled(false);
                 unsubscribeButton.setVisible(true);
 
-                SubjectUI subjectUI= new SubjectUI("Subject UI",subject);
-                subjectUI.setSize(800,500);
-                subjectUI.setDefaultCloseOperation(subjectUI.EXIT_ON_CLOSE);
-                subjectUI.setVisible(true);
+                if(subjectWindowOpen==false){
+                    SubjectUI subjectUI= new SubjectUI("Subject UI",subject);
+                    subjectUI.setSize(800,500);
+                    subjectUI.setDefaultCloseOperation(subjectUI.EXIT_ON_CLOSE);
+                    subjectUI.setVisible(true);
+                    subjectWindowOpen=true;
+                }
             }
         });
 

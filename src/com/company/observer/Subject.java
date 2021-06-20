@@ -9,15 +9,12 @@ public class Subject {
     //ArrayList is one kind of List
     List <Observer> observers = new ArrayList<>();
 
-    public List<Observer> getObservers() {
-        return observers;
-    }
-
     //subscribe
     public void subscribe(Observer observer){
 
         //In a real world app the observer should be added to the database
         observers.add(observer);
+        System.out.println("\n===============================================================\n");
         observer.notifyObserver("Thanks for subscribing to ABC!"+"\n\n===============================================================\n");
     }
 
@@ -26,6 +23,7 @@ public class Subject {
 
         //In a real world app the observer should be removed from the database or some indication must be made to show they have unsubscribed
         observers.remove(observer);
+        System.out.println("\n===============================================================\n");
         observer.notifyObserver("You have unsubscribed from ABC"+"\n\n===============================================================\n");
     }
 

@@ -20,9 +20,10 @@ public class Main {
         create a form to enter name and email address
         */
 
-        ObserverUI observerUI = new ObserverUI("Subscribe to ABC");
+        Subject subject = new Subject();
+
+        ObserverUI observerUI = new ObserverUI("Subscribe to ABC",subject);
         observerUI.setSize(800,500);
-        observerUI.setDefaultCloseOperation(observerUI.EXIT_ON_CLOSE);
         observerUI.setVisible(true);
 
 /*
